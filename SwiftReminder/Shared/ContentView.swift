@@ -9,25 +9,66 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        ZStack {
+            Color(UIColor.secondarySystemBackground)
+
+            VStack(spacing: 16) {
+                InlineButton(
+                    leftButton:MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .blue, title: "今日", numberOfReminders: 0),
+                    rightButton: MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .red, title: "日時変更あり", numberOfReminders: 0))
+                MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .gray, title: "すべて", numberOfReminders: 0)
+            }
+            .padding(16)
+        }
+        .edgesIgnoringSafeArea(.all)
+
+    }
+}
+
+struct InlineButton: View {
+    let leftButton: MyButton
+    let rightButton: MyButton
+
+    var body: some View {
+        HStack(spacing: 16) {
+            leftButton
+            rightButton
+        }
+    }
+}
+
+struct MyButton: View {
+    let iconImage: Image
+    let iconColor: Color
+    let title: String
+    let numberOfReminders: Int
+
+    var body: some View {
         Button(action: {print("button pressed")}) {
             VStack(alignment: .leading) {
                 HStack(alignment: .center) {
-                    Image(systemName: "calendar.circle.fill")
+                    iconImage
                         .resizable()
                         .frame(width: 30.0, height: 30.0)
+                        .accentColor(iconColor)
                     Spacer()
-                    Text("0")
+                    Text(String(numberOfReminders))
                         .font(.system(size: 30))
                         .fontWeight(.bold)
                         .foregroundColor(Color.black)
                 }
-                Text("Today")
+                Text(title)
+                    .font(.system(size: 16))
+                    .fontWeight(.bold)
                     .foregroundColor(Color.gray)
             }
-
-        }.frame(width: 100, height: 60)
+            .padding(8)
+        }
+        .background(Color.white)
+        .cornerRadius(8)
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
