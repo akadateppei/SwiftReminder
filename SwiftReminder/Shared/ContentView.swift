@@ -14,13 +14,13 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack(alignment:.leading) {
-                VStack(alignment:.leading, spacing: 16) {
+                VStack(alignment:.leading, spacing: 20) {
                     InlineButton(
                         leftButton:MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .blue, title: "今日", numberOfReminders: 0),
                         rightButton: MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .red, title: "日時変更あり", numberOfReminders: 0))
                     MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .gray, title: "すべて", numberOfReminders: 0)
                 }
-                .padding([.top, .leading, .trailing])
+                .padding([.top, .leading, .trailing], 20)
                 List {
                     Section(
                         header: Text("マイリスト")
@@ -60,7 +60,7 @@ struct InlineButton: View {
     let rightButton: MyButton
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 20) {
             leftButton
             rightButton
         }
