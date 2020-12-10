@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Color(UIColor.secondarySystemBackground)
+                .edgesIgnoringSafeArea(.all)
 
             VStack(spacing: 16) {
                 InlineButton(
@@ -20,8 +21,6 @@ struct ContentView: View {
             }
             .padding(16)
         }
-        .edgesIgnoringSafeArea(.all)
-
     }
 }
 
