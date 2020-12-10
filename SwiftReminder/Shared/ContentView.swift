@@ -27,6 +27,7 @@ struct ContentView: View {
                                 .font(.system(size: 24))
                                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                                 .padding(.leading)
+                                .foregroundColor(.black)
                     ) {
                         MyListRow(title: "hoge", numberOfReminders: 1)
                         MyListRow(title: "hoge", numberOfReminders: 1)
@@ -44,9 +45,14 @@ struct MyListRow: View {
 
     var body: some View {
         HStack {
-            Image(systemName: "calendar.circle.fill")
+            Image(systemName: "list.bullet")
+                .font(Font.system(size: 16, weight: .bold))
+                .frame(width: 30, height: 30)
+                .foregroundColor(.white)
+                .background(Circle().foregroundColor(.blue))
+
+
             Text(title)
-            Text(String(numberOfReminders))
             NavigationLink(destination: ContentView()) {
                 Spacer()
                 Text(String(numberOfReminders))
