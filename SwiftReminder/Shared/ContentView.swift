@@ -13,13 +13,44 @@ struct ContentView: View {
             Color(UIColor.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
 
-            VStack(spacing: 16) {
-                InlineButton(
-                    leftButton:MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .blue, title: "今日", numberOfReminders: 0),
-                    rightButton: MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .red, title: "日時変更あり", numberOfReminders: 0))
-                MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .gray, title: "すべて", numberOfReminders: 0)
+            VStack(alignment:.leading) {
+                VStack(alignment:.leading, spacing: 16) {
+                    InlineButton(
+                        leftButton:MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .blue, title: "今日", numberOfReminders: 0),
+                        rightButton: MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .red, title: "日時変更あり", numberOfReminders: 0))
+                    MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .gray, title: "すべて", numberOfReminders: 0)
+                }
+                .padding([.top, .leading, .trailing])
+                List {
+                    Section(
+                        header: Text("マイリスト")
+                                .font(.system(size: 24))
+                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                .padding(.leading)
+                    ) {
+                        MyListRow(title: "hoge", numberOfReminders: 1)
+                        MyListRow(title: "hoge", numberOfReminders: 1)
+                    }
+                }
+                .listStyle(InsetGroupedListStyle())
             }
-            .padding(16)
+        }
+    }
+}
+
+struct MyListRow: View {
+    var title: String
+    var numberOfReminders: Int
+
+    var body: some View {
+        HStack {
+            Image(systemName: "calendar.circle.fill")
+            Text(title)
+            Text(String(numberOfReminders))
+            NavigationLink(destination: ContentView()) {
+                Spacer()
+                Text(String(numberOfReminders))
+            }
         }
     }
 }
@@ -58,13 +89,13 @@ struct MyButton: View {
                 }
                 Text(title)
                     .font(.system(size: 16))
-                    .fontWeight(.bold)
+                    .fontWeight(.semibold)
                     .foregroundColor(Color.gray)
             }
-            .padding(8)
+            .padding(10)
         }
         .background(Color.white)
-        .cornerRadius(8)
+        .cornerRadius(10)
     }
 }
 
