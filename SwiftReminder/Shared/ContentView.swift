@@ -9,33 +9,45 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack(alignment: .top) {
-            Color(UIColor.secondarySystemBackground)
-                .edgesIgnoringSafeArea(.all)
-
-            VStack(alignment:.leading) {
-                VStack(alignment:.leading, spacing: 20) {
-                    InlineButton(
-                        leftButton:MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .blue, title: "今日", numberOfReminders: 0),
-                        rightButton: MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .red, title: "日時変更あり", numberOfReminders: 0))
-                    MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .gray, title: "すべて", numberOfReminders: 0)
-                }
-                .padding([.top, .leading, .trailing], 20)
-                List {
-                    Section(
-                        header: Text("マイリスト")
-                                .font(.system(size: 24))
-                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                .padding(.leading)
-                                .foregroundColor(.black)
-                    ) {
-                        MyListRow(title: "hoge", numberOfReminders: 1)
-                        MyListRow(title: "hoge", numberOfReminders: 1)
+        NavigationView {
+            ZStack(alignment: .top) {
+                Color(UIColor.secondarySystemBackground)
+                    .edgesIgnoringSafeArea(.all)
+                GeometryReader { g in
+                    ScrollView(.vertical) {
+                        VStack(alignment:.leading) {
+                            VStack(alignment:.leading, spacing: 20) {
+                                InlineButton(
+                                    leftButton:MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .blue, title: "今日", numberOfReminders: 0),
+                                    rightButton: MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .red, title: "日時変更あり", numberOfReminders: 0))
+                                MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .gray, title: "すべて", numberOfReminders: 0)
+                            }
+                            .padding([.top, .leading, .trailing], 20)
+                            List {
+                                Section(
+                                    header: Text("マイリスト")
+                                            .font(.system(size: 24))
+                                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                            .padding(.leading)
+                                            .foregroundColor(.black)
+                                ) {
+                                    MyListRow(title: "hoge", numberOfReminders: 1)
+                                    MyListRow(title: "hoge", numberOfReminders: 1)
+                                    MyListRow(title: "hoge", numberOfReminders: 1)
+                                    MyListRow(title: "hoge", numberOfReminders: 1)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .frame(width: g.size.width - 5, height: g.size.height - 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        }
                     }
                 }
-                .listStyle(InsetGroupedListStyle())
             }
+            .navigationBarItems(leading: Text("hoge"))
+            .navigationBarTitle("")
         }
+
+
     }
 }
 
