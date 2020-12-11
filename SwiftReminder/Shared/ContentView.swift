@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var searchBar = SearchBar()
+
     var body: some View {
         NavigationView {
-            ZStack(alignment: .top) {
-                Color(UIColor.secondarySystemBackground)
-                    .edgesIgnoringSafeArea(.all)
-                GeometryReader { g in
+            GeometryReader { g in
+                ZStack(alignment: .top) {
+                    Color(UIColor.secondarySystemBackground)
+                        .edgesIgnoringSafeArea(.all)
                     ScrollView(.vertical) {
                         VStack(alignment:.leading) {
                             VStack(alignment:.leading, spacing: 20) {
@@ -23,31 +25,37 @@ struct ContentView: View {
                                 MyButton(iconImage: Image(systemName: "calendar.circle.fill"), iconColor: .gray, title: "すべて", numberOfReminders: 0)
                             }
                             .padding([.top, .leading, .trailing], 20)
-                            List {
-                                Section(
-                                    header: Text("マイリスト")
-                                            .font(.system(size: 24))
-                                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                            .padding(.leading)
-                                            .foregroundColor(.black)
-                                ) {
-                                    MyListRow(title: "hoge", numberOfReminders: 1)
-                                    MyListRow(title: "hoge", numberOfReminders: 1)
-                                    MyListRow(title: "hoge", numberOfReminders: 1)
-                                    MyListRow(title: "hoge", numberOfReminders: 1)
-                                }
-                            }
-                            .listStyle(InsetGroupedListStyle())
-                            .frame(width: g.size.width - 5, height: g.size.height - 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+
+                            MyList()
+                                .frame(width: g.size.width , height: g.size.height, alignment: .leading)
                         }
                     }
                 }
+                .add(self.searchBar)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(trailing: EditButton())
             }
-            .navigationBarItems(leading: Text("hoge"))
-            .navigationBarTitle("")
         }
+    }
+}
 
-
+struct MyList: View {
+    var body: some View {
+        List {
+            Section(
+                header: Text("マイリスト")
+                        .font(.system(size: 24))
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.leading)
+                        .foregroundColor(.black)
+            ) {
+                MyListRow(title: "hoge", numberOfReminders: 1)
+                MyListRow(title: "hoge", numberOfReminders: 1)
+                MyListRow(title: "hoge", numberOfReminders: 1)
+                MyListRow(title: "hoge", numberOfReminders: 1)
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
     }
 }
 
